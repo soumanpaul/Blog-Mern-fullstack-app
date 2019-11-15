@@ -10,11 +10,8 @@ const ArticlePage = ({ match }) => {
     const name = match.params.name;
 	const article = articleContent.find(article => article.name === name);
 
-
 	const [articleInfo, setArticleInfo] = useState({ upvotes: 0, comments: [] });
-	
 	useEffect(() => {
-
 		const fetchData = async () => {
 			const result = await fetch(`/api/articles/${name}`)
 			const body = await result.json();
@@ -22,12 +19,9 @@ const ArticlePage = ({ match }) => {
 			setArticleInfo(body);
 		}
 		fetchData();
+	}, [name]);	
 
-	}, [name]);
-
-	
 	if (!article) return <> <NotFoundPage /> </>
-	
 
 	const otherArticles = articleContent.filter(article => article.name !== name);
 
